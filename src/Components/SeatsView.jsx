@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DropDown from "./DropDown";
 import "./styleTest.css";
 
 const busSeat = [
@@ -16,47 +17,58 @@ const busSeat = [
 ];
 
 const SeatsView = () => {
+  const [currentRange, setCurrentRange] = useState([]);
   return (
-    <div className='plane'>
-      <div className='h-12 relative overflow-hidden text-center border-blue-200 before:content-[""] before:flex before:flex-row before:absolute before:h-12 before:w-full before:rounded-md before:border-4 before:border-blue-200'>
-        <h1 className='w-full mt-3'>Please select a seat</h1>
+    <div className='flex flex-row w-full justify-center mt-10'>
+      <div className='flex flex-col w-[300px]'>
+        <div className='h-12 relative text-center border-blue-200 before:content-[""] before:flex before:flex-row before:absolute before:h-12 before:w-full before:rounded-md before:border-4 before:border-blue-200'>
+          <h1 className='w-full mt-3'>Please select a seat</h1>
+        </div>
+        <ol className='border-4 border-blue-200 rounded-md'>
+          {busSeat.map((row, idx) => {
+            return (
+              <li key={row}>
+                <ol
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                  }}
+                  className='flex flex-row flex-nowrap justify-start'
+                  type='A'
+                >
+                  {row?.map((s) => {
+                    return (
+                      <li key={s} className='seat' data-bs-toggle='tooltip'>
+                        <input
+                          type='checkbox'
+                          id={s}
+                          disabled={
+                            currentRange
+                              ? currentRange.find((o) => o === row)
+                              : "none"
+                          }
+                        />
+                        <label htmlFor={s}>{s}</label>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </li>
+            );
+          })}
+        </ol>
       </div>
-      <ol className='border-4 border-blue-200 rounded-md'>
-        {busSeat.map((row, idx) => {
-          return (
-            <li key={row}>
-              <ol
-                style={{
-                  listStyle: "none",
-                  padding: 0,
-                  margin: 0,
-                }}
-                className='flex flex-row flex-nowrap justify-start'
-                type='A'
-              >
-                {row?.map((s) => {
-                  const range = busSeat.slice(1, 2);
-                  return (
-                    <li key={s} className='seat' data-bs-toggle='tooltip'>
-                      <input
-                        type='checkbox'
-                        id={s}
-                        disabled={range.find((o) => o === row)}
-                        // onClick={() => {
-                        //   range.find((o) => o === row)
-                        //     ? console.log("booked")
-                        //     : console.log(s);
-                        // }}
-                      />
-                      <label htmlFor={s}>{s}</label>
-                    </li>
-                  );
-                })}
-              </ol>
-            </li>
-          );
-        })}
-      </ol>
+      <div className='flex flex-col items-center ml-6'>
+        <h3 className='font-bold text-center text-base w-52'>
+          Select Range to disable
+        </h3>
+        <DropDown
+          currentRange={currentRange}
+          setCurrentRange={setCurrentRange}
+          busSeat={busSeat}
+        />
+      </div>
     </div>
   );
 };
