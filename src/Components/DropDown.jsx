@@ -119,6 +119,7 @@ export default function DropDown({ currentRange, setCurrentRange, busSeat }) {
         disabled={displaytext === "Select Range"}
         onClick={() => {
           setCurrentRange([]);
+          setSelected([]);
           setDisplayText("Select Range");
         }}
         className='mt-4 rounded-md bg-blue-500 text-blue-50 px-2 py-1 disabled:bg-blue-300'
