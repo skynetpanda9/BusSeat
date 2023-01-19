@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DropDown from "./DropDown";
+import RangeSelector from "./RangeSelector";
 import "./styleTest.css";
 
 const busSeat = [
@@ -18,6 +19,9 @@ const busSeat = [
 
 const SeatsView = () => {
   const [currentRange, setCurrentRange] = useState([]);
+
+  console.log(currentRange);
+
   return (
     <div className='flex flex-row w-full justify-center mt-10'>
       <div className='flex flex-col w-[300px]'>
@@ -25,7 +29,7 @@ const SeatsView = () => {
           <h1 className='w-full mt-3'>Please select a seat</h1>
         </div>
         <ol className='border-4 border-blue-200 rounded-md'>
-          {busSeat.map((row, idx) => {
+          {busSeat.map((row) => {
             return (
               <li key={row}>
                 <ol
@@ -63,11 +67,7 @@ const SeatsView = () => {
         <h3 className='font-bold text-center text-base w-52'>
           Select Range to disable
         </h3>
-        <DropDown
-          currentRange={currentRange}
-          setCurrentRange={setCurrentRange}
-          busSeat={busSeat}
-        />
+        <RangeSelector setCurrentRange={setCurrentRange} row={busSeat} />
       </div>
     </div>
   );
