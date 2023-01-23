@@ -19,6 +19,7 @@ const busSeat = [
 
 const SeatsView = () => {
   const [currentRange, setCurrentRange] = useState([]);
+  const [disabled, setDisabled] = useState(true);
 
   return (
     <div className='flex flex-row w-full justify-center mt-10'>
@@ -45,6 +46,7 @@ const SeatsView = () => {
                         <input
                           type='checkbox'
                           name='bus'
+                          onChange={() => setDisabled(false)}
                           id={s}
                           disabled={
                             currentRange
@@ -63,10 +65,12 @@ const SeatsView = () => {
         </ol>
       </div>
       <div className='flex flex-col items-center ml-6'>
-        <h3 className='font-bold text-center text-base w-52'>
+        <h3 className='font-bold text-center text-base mb-2'>
           Select Range to disable seats
         </h3>
         <RangeSelector
+          disabled={disabled}
+          setDisabled={setDisabled}
           currentRange={currentRange}
           setCurrentRange={setCurrentRange}
           row={busSeat}

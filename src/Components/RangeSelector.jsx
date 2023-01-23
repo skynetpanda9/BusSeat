@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import DropRange from "./DropRange";
 
-const RangeSelector = ({ currentRange, setCurrentRange, row }) => {
+const RangeSelector = ({
+  disabled,
+  setDisabled,
+  currentRange,
+  setCurrentRange,
+  row,
+}) => {
   const [val1, setVal1] = useState();
   const [val2, setVal2] = useState();
   const [selected1, setSelected1] = useState("Select");
@@ -14,6 +20,15 @@ const RangeSelector = ({ currentRange, setCurrentRange, row }) => {
       return new Array(end - (start - 1)).fill().map((d, i) => i + start);
     }
   }
+
+  useEffect(() => {
+    let items = document.getElementsByName("bus");
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type == "checkbox" && items[i].checked === true) {
+        setDisabled(false);
+      }
+    }
+  }, []);
 
   function UnSelectAll() {
     let items = document.getElementsByName("bus");
@@ -58,13 +73,22 @@ const RangeSelector = ({ currentRange, setCurrentRange, row }) => {
             setCurrentRange([]);
             setSelected1("Select");
             setSelected2("Select");
-            UnSelectAll();
           }}
           className='mt-4 rounded-md bg-red-500 text-blue-50 px-2 py-1 disabled:bg-red-300'
         >
           Clear Range
         </button>
       </div>
+      <button
+        disabled={disabled ? true : false}
+        onClick={() => {
+          UnSelectAll();
+          setDisabled(true);
+        }}
+        className='mt-4 rounded-md bg-green-500 text-blue-50 px-2 py-1 disabled:bg-green-300 w-full'
+      >
+        Clear Selected Seats
+      </button>
     </>
   );
 };
