@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DropDown from "./DropDown";
 import RangeSelector from "./RangeSelector";
 import "./styleTest.css";
@@ -20,6 +20,22 @@ const busSeat = [
 const SeatsView = () => {
   const [currentRange, setCurrentRange] = useState([]);
   const [disabled, setDisabled] = useState(true);
+
+  const UnSelectAll = () => {
+    let items = document.getElementsByName("bus");
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type == "checkbox") items[i].checked = false;
+    }
+  };
+
+  useEffect(() => {
+    let items = document.getElementsByName("bus");
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type == "checkbox" && items[i].checked === true) {
+        setDisabled(false);
+      }
+    }
+  }, []);
 
   return (
     <div className='flex flex-row w-full justify-center mt-10'>
@@ -63,14 +79,22 @@ const SeatsView = () => {
             );
           })}
         </ol>
+        <button
+          disabled={disabled ? true : false}
+          onClick={() => {
+            UnSelectAll();
+            setDisabled(true);
+          }}
+          className='mt-4 rounded-md bg-green-500 text-blue-50 px-2 py-1 disabled:bg-green-300 w-full'
+        >
+          Clear Selected Seats
+        </button>
       </div>
       <div className='flex flex-col items-center ml-6'>
         <h3 className='font-bold text-center text-base mb-2'>
           Select Range to disable seats
         </h3>
         <RangeSelector
-          disabled={disabled}
-          setDisabled={setDisabled}
           currentRange={currentRange}
           setCurrentRange={setCurrentRange}
           row={busSeat}
