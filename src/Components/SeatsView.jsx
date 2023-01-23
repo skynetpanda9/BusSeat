@@ -22,18 +22,14 @@ const SeatsView = () => {
   const [currentRange, setCurrentRange] = useState([]);
   const [disabled, setDisabled] = useState(true);
 
-  const ref = useRef();
+  const ref = useRef([]);
 
-  const UnSelectAll = () => {
-    let items = ref.current.name === "bus";
-    console.log(items.length);
-    // items.forEach((element) => {
-    //   console.log(element.length);
-    // });
-    // for (let i = 0; i < items.length; i++) {
-    //   if (items[i].type === "checkbox") items[i].checked === false;
-    // }
-    // setDisabled(true);
+  const Unchecked = (event) => {
+    event.preventDefault();
+    ref.current.forEach((element) => {
+      element.checked = false;
+    });
+    setDisabled(true);
   };
 
   return (
@@ -59,10 +55,13 @@ const SeatsView = () => {
                     return (
                       <li key={s} className='seat' data-bs-toggle='tooltip'>
                         <input
-                          ref={ref}
+                          ref={(element) => {
+                            ref.current[s] = element;
+                          }}
                           type='checkbox'
                           name='bus'
                           onChange={() => {
+                            console.log(ref.current[s].checked);
                             setDisabled(false);
                           }}
                           id={s}
@@ -83,9 +82,7 @@ const SeatsView = () => {
         </ol>
         <button
           disabled={disabled ? true : false}
-          onClick={() => {
-            UnSelectAll();
-          }}
+          onClick={Unchecked}
           className='mt-4 rounded-md bg-green-500 text-blue-50 px-2 py-1 disabled:bg-green-300 w-full'
         >
           Clear Selected Seats
