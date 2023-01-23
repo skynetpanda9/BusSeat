@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DropDown from "./DropDown";
 import RangeSelector from "./RangeSelector";
 import "./styleTest.css";
+import steer from "../icons/steer.png";
 
 const busSeat = [
   [1, 2, 3, 4, 5],
@@ -28,8 +29,9 @@ const SeatsView = () => {
     }
   };
 
+  let items = document.getElementsByName("bus");
+
   useEffect(() => {
-    let items = document.getElementsByName("bus");
     for (let i = 0; i < items.length; i++) {
       if (items[i].type == "checkbox" && items[i].checked === true) {
         setDisabled(false);
@@ -40,8 +42,8 @@ const SeatsView = () => {
   return (
     <div className='flex flex-row w-full justify-center mt-10'>
       <div className='flex flex-col w-[300px]'>
-        <div className='h-12 relative text-center border-blue-200 before:content-[""] before:flex before:flex-row before:absolute before:h-12 before:w-full before:rounded-md before:border-4 before:border-blue-200'>
-          <h1 className='w-full mt-3'>Please select a seat</h1>
+        <div className='h-12 flex flex-row w-full justify-end items-center border-4 px-3 rounded-md border-blue-200'>
+          <img className='w-6 h-6' src={steer} alt='steer' />
         </div>
         <ol className='border-4 border-blue-200 rounded-md'>
           {busSeat.map((row) => {
@@ -62,7 +64,9 @@ const SeatsView = () => {
                         <input
                           type='checkbox'
                           name='bus'
-                          onChange={() => setDisabled(false)}
+                          onChange={() => {
+                            setDisabled(false);
+                          }}
                           id={s}
                           disabled={
                             currentRange
