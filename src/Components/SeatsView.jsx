@@ -20,8 +20,6 @@ const busSeat = [
 const SeatsView = () => {
   const [currentRange, setCurrentRange] = useState([]);
 
-  console.log(currentRange);
-
   return (
     <div className='flex flex-row w-full justify-center mt-10'>
       <div className='flex flex-col w-[300px]'>
@@ -49,7 +47,7 @@ const SeatsView = () => {
                           id={s}
                           disabled={
                             currentRange
-                              ? currentRange.find((o) => o === row)
+                              ? currentRange.find((o) => o === s)
                               : "none"
                           }
                         />
@@ -67,7 +65,11 @@ const SeatsView = () => {
         <h3 className='font-bold text-center text-base w-52'>
           Select Range to disable
         </h3>
-        <RangeSelector setCurrentRange={setCurrentRange} row={busSeat} />
+        <RangeSelector
+          currentRange={currentRange}
+          setCurrentRange={setCurrentRange}
+          row={busSeat}
+        />
       </div>
     </div>
   );

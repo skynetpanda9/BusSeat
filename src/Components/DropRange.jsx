@@ -2,9 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const DropRange = ({ row, setValue }) => {
-  const [selected, setSelected] = useState("Select");
-
+const DropRange = ({ row, setValue, selected, setSelected }) => {
   const FilterData = () => {
     return (
       <div>
