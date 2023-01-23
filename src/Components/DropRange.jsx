@@ -3,6 +3,13 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const DropRange = ({ row, setValue, selected, setSelected }) => {
+  const [disabled, setDisabled] = useState();
+
+  function numberRange(start, end) {
+    return new Array(end - start).fill().map((d, i) => i + start);
+  }
+  // console.log(numberRange(selected, 1));
+
   const FilterData = () => {
     return (
       <div>

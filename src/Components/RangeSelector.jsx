@@ -8,7 +8,18 @@ const RangeSelector = ({ currentRange, setCurrentRange, row }) => {
   const [selected2, setSelected2] = useState("Select");
 
   function numberRange(start, end) {
-    return new Array(end - (start - 1)).fill().map((d, i) => i + start);
+    if (start > end) {
+      return new Array(start - (end - 1)).fill().map((d, i) => i + end);
+    } else {
+      return new Array(end - (start - 1)).fill().map((d, i) => i + start);
+    }
+  }
+
+  function UnSelectAll() {
+    let items = document.getElementsByName("bus");
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type == "checkbox") items[i].checked = false;
+    }
   }
 
   return (
@@ -47,6 +58,7 @@ const RangeSelector = ({ currentRange, setCurrentRange, row }) => {
             setCurrentRange([]);
             setSelected1("Select");
             setSelected2("Select");
+            UnSelectAll();
           }}
           className='mt-4 rounded-md bg-red-500 text-blue-50 px-2 py-1 disabled:bg-red-300'
         >

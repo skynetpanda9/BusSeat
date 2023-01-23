@@ -44,6 +44,7 @@ const SeatsView = () => {
                       <li key={s} className='seat' data-bs-toggle='tooltip'>
                         <input
                           type='checkbox'
+                          name='bus'
                           id={s}
                           disabled={
                             currentRange
@@ -63,7 +64,7 @@ const SeatsView = () => {
       </div>
       <div className='flex flex-col items-center ml-6'>
         <h3 className='font-bold text-center text-base w-52'>
-          Select Range to disable
+          Select Range to disable seats
         </h3>
         <RangeSelector
           currentRange={currentRange}
