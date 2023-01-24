@@ -61,7 +61,6 @@ const SeatsView = () => {
                           type='checkbox'
                           name='bus'
                           onChange={() => {
-                            console.log(ref.current[s].checked);
                             setDisabled(false);
                           }}
                           id={s}
